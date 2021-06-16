@@ -1,13 +1,13 @@
-#include <linux/module.h>	/* Needed by all modules */
-#include <linux/kernel.h>	/* Needed for KERN_INFO */
-
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/random.h> 
 int init_module(void)
 {
+	int k;
+	get_random_bytes(&k, sizeof(k));
 	printk(KERN_INFO "Hello world 1.\n");
 
-	/* 
-	 * A non 0 return means init_module failed; module can't be loaded. 
-	 */
+	printk(KERN_INFO "BITE %d\n", k);
 	return 0;
 }
 
