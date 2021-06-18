@@ -21,6 +21,7 @@
  */
 
 int init_module(void);
+void cleanup_module(void);
 static int device_open(struct inode *, struct file *);
 static int device_release(struct inode *, struct file *);
 static ssize_t device_read(struct file *, char *, size_t, loff_t *);
@@ -40,7 +41,6 @@ static char msg[BUF_LEN];
 static char *msg_Ptr;
 
 static struct file_operations fops = {
-  .owner = THIS_MODULE,
   .read = device_read,
   .write = device_write,
   .open = device_open,
@@ -64,6 +64,17 @@ int init_module(void)
   printk(KERN_INFO "'mknod /dev/%s c %d 0'.\n", DEVICE_NAME, Major);
 
   return SUCCESS;
+}
+
+/*
+ * This function is called when the module is unloaded
+ */
+void cleanup_module(void)
+{
+  /*
+   * Unregister the device
+   */
+  unregister_chrdev(Major, DEVICE_NAME);
 }
 
 /*
