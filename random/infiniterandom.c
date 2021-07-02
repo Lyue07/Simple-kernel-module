@@ -30,10 +30,12 @@ static int device_open(struct inode *inode, struct file *filp)
 {
     int rand;
     get_random_bytes(&rand, sizeof(rand));
+    rand = rand % 10;
     sprintf(msg, "%d", rand);
+    if (rand < 0)
+        rand *= -1;
     msg_Ptr = msg;
     try_module_get(THIS_MODULE);
-
     return SUCCESS;
 }
 
