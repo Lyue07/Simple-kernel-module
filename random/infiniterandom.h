@@ -12,7 +12,7 @@ static ssize_t device_read(struct file *, char *, size_t, loff_t *);
 static ssize_t device_write(struct file *, const char *, size_t, loff_t *);
 
 #define SUCCESS 0
-#define DEVICE_NAME "chardev"
+#define DEVICE_NAME "infinitrandom"
 #define BUF_LEN 80
 
 static int Major;

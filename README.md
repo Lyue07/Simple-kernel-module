@@ -1,10 +1,11 @@
 # Simple-kernel-module
 
+
+go in random directory
 make
-
-
-sudo insmod ./hello-1.ko
-
+sudo insmod ./infiniterandom.ko
 sudo dmesg
-
-sudo rmmod hello-1
+sudo mknod c Major 0
+cat /dev/infiniterandom
+sudo rmmod infiniterandom
+sudo rm /dev/infiniterandom

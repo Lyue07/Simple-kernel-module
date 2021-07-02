@@ -1,4 +1,4 @@
-#include "chardev.h"
+#include "infiniterandom.h"
 
 static struct file_operations fops = {
     .read = device_read,
@@ -30,10 +30,12 @@ static int device_open(struct inode *inode, struct file *filp)
 {
     int rand;
     get_random_bytes(&rand, sizeof(rand));
+    rand = rand % 10;
     sprintf(msg, "%d", rand);
+    if (rand < 0)
+        rand *= -1;
     msg_Ptr = msg;
     try_module_get(THIS_MODULE);
-
     return SUCCESS;
 }
 
@@ -59,8 +61,7 @@ static ssize_t device_read(struct file *filp, char *buffer, size_t length, loff_
     return bytes_read;
 }
 
-    static ssize_t
-device_write(struct file *filp, const char *buf, size_t len, loff_t *off)
+static ssize_t device_write(struct file *filp, const char *buf, size_t len, loff_t *off)
 {
     printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
     return -EINVAL;
