@@ -61,8 +61,7 @@ static ssize_t device_read(struct file *filp, char *buffer, size_t length, loff_
     return bytes_read;
 }
 
-    static ssize_t
-device_write(struct file *filp, const char *buf, size_t len, loff_t *off)
+static ssize_t device_write(struct file *filp, const char *buf, size_t len, loff_t *off)
 {
     printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
     return -EINVAL;
