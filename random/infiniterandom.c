@@ -1,4 +1,4 @@
-#include "chardev.h"
+#include "infiniterandom.h"
 
 static struct file_operations fops = {
     .read = device_read,
