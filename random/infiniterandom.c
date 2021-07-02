@@ -27,14 +27,7 @@ void cleanup_module(void)
 }
 
 static int device_open(struct inode *inode, struct file *filp)
-{
-    int rand;
-    get_random_bytes(&rand, sizeof(rand));
-    rand = rand % 10;
-    sprintf(msg, "%d", rand);
-    if (rand < 0)
-        rand *= -1;
-    msg_Ptr = msg;
+{  
     try_module_get(THIS_MODULE);
     return SUCCESS;
 }
@@ -47,7 +40,14 @@ static int device_release(struct inode *inode, struct file *filp)
 
 static ssize_t device_read(struct file *filp, char *buffer, size_t length, loff_t *offset)
 {
+    int rand;
     int bytes_read = 0;
+    get_random_bytes(&rand, sizeof(rand));
+    rand = rand % 10;
+    if (rand < 0)
+        rand *= -1;
+    sprintf(msg, "%d", rand);
+    msg_Ptr = msg;
 
     if (*msg_Ptr == 0)
         return 0;
