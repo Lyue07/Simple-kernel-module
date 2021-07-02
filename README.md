@@ -3,7 +3,7 @@
 
 go in random directory
 make
-sudo insmod ./random.ko
+sudo insmod ./infiniterandom.ko
 sudo dmesg
 sudo mknod c Major 0
 cat /dev/infiniterandom
