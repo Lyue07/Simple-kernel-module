@@ -7,6 +7,9 @@ static struct file_operations fops = {
     .release = device_release
 };
 
+static char *alphabet = "test";
+module_param(alphabet, charp, 0000);
+
 int init_module(void)
 {
     Major = register_chrdev(0, DEVICE_NAME, &fops);
@@ -42,11 +45,15 @@ static ssize_t device_read(struct file *filp, char *buffer, size_t length, loff_
 {
     int rand;
     int bytes_read = 0;
+    int len = my_strlen(alphabet);
+    
     get_random_bytes(&rand, sizeof(rand));
-    rand = rand % 10;
+    rand = rand % len;
     if (rand < 0)
         rand *= -1;
-    sprintf(msg, "%d", rand);
+    if (rand == len)
+        rand--;
+    sprintf(msg, "%c", *(alphabet + rand));
     msg_Ptr = msg;
 
     if (*msg_Ptr == 0)
@@ -65,4 +72,15 @@ static ssize_t device_write(struct file *filp, const char *buf, size_t len, loff
 {
     printk(KERN_ALERT "Sorry, this operation isn't supported.\n");
     return -EINVAL;
+}
+
+size_t my_strlen(const char *s)
+{
+    int len = 0;
+    while (*s != '\0')
+    {
+        len++;
+        s++;
+    }
+    return len;
 }
