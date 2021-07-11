@@ -88,4 +88,3 @@ size_t my_strlen(const char *s)
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SALLIOT Mathieu RIBEIRO Luis REIS Dylan");
 MODULE_DESCRIPTION("Random Module");
-
