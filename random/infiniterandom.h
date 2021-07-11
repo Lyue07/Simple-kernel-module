@@ -2,10 +2,7 @@
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/random.h>
-<<<<<<< HEAD
 #include <linux/init.h>
-=======
->>>>>>> c5c4a78d5fce7b0667366c90b1e9cbb7b4370958
 #include <asm/uaccess.h>
 
 int init_module(void);
