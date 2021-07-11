@@ -2,6 +2,7 @@
 #include <linux/module.h>
 #include <linux/fs.h>
 #include <linux/random.h>
+#include <linux/init.h>
 #include <asm/uaccess.h>
 
 int init_module(void);
